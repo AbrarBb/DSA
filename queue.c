@@ -1,66 +1,93 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
-#define CAPACITY 5
+#define CAPACITY 5 
 
-int ourQueue[CAPACITY];
-int front = 0, rear = -1, totalItem = 0;
+int queue[CAPACITY];
+int front = 0, rear = -1, size = 0;
 
-bool isFull() {
-    return totalItem == CAPACITY;
+
+bool isFull() 
+{
+    return size == CAPACITY;
 }
 
-bool isEmpty() {
-    return totalItem == 0;
+bool isEmpty() 
+{
+    return size == 0;
 }
 
-void enqueue(int item) {
-    if (isFull()) {
-        printf("Sorry, the Queue is full.\n");
+
+void enqueue(int item) 
+{
+    if (isFull()) 
+    1{
+        printf("Queue is full! Cannot enqueue %d\n", item);
         return;
     }
-    rear = (rear + 1) % CAPACITY;
-    ourQueue[rear] = item;
-    totalItem++;
+    rear = (rear + 1) % CAPACITY; 
+    queue[rear] = item;
+    size++;
+    printf("Enqueued: %d\n", item);
 }
+
 
 int dequeue() {
     if (isEmpty()) {
-        printf("Sorry, the Queue is empty.\n");
-        return -1;
+        printf("Queue is empty! Cannot dequeue.\n");
+        return -1; 
     }
-    int frontItem = ourQueue[front];
-    front = (front + 1) % CAPACITY;
-    totalItem--;
-    return frontItem;
+    int item = queue[front];
+    front = (front + 1) % CAPACITY; 
+    size--;
+    printf("Dequeued: %d\n", item);
+    return item;
 }
 
-void printQueue() {
-    if (isEmpty()) {
+
+void displayQueue() 
+{
+    if (isEmpty()) 
+    {
         printf("Queue is empty.\n");
         return;
     }
-    printf("Queue: ");
-    for (int i = 0; i < totalItem; i++) {
-        int index = (front + i) % CAPACITY;
-        printf("%d ", ourQueue[index]);
+    printf("Queue elements: ");
+    for (int i = 0; i < size; i++) 
+    {
+        printf("%d ", queue[(front + i) % CAPACITY]);
     }
     printf("\n");
 }
 
-int main() {
-    printf("\n***********\nLet's implement our Queue.\n\n");
-    enqueue(10);
-    enqueue(20);
-    enqueue(30);
-    enqueue(40);
-    printQueue();
-    enqueue(50);
-    printQueue();
-    enqueue(60);
-    printf("Deque: %d\n", dequeue());
-    printQueue();
-    enqueue(60);
-    printQueue();
+int main() 
+{
+    int choice, value;
+    do {
+        printf("\n1. Enqueue\n2. Dequeue\n3. Display Queue\n4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                printf("Enter value to enqueue: ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                displayQueue();
+                break;
+            case 4:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    } while (choice != 4);
+    
     return 0;
 }
