@@ -1,25 +1,21 @@
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdbool.h>
 
 #define CAPACITY 5
 
 int ourQueue[CAPACITY];
 int front = 0, rear = -1, totalItem = 0;
 
-bool isFull(){
-    if(totalItem == CAPACITY){
-        return true;
-    }
-    return false;
+bool isFull() {
+    return totalItem == CAPACITY;
 }
-bool isEmpty(){
-    if(totalItem == 0){
-        return true;
-    }
-    return false;
+
+bool isEmpty() {
+    return totalItem == 0;
 }
-void enqueue(int item){
-    if(isFull()){
+
+void enqueue(int item) {
+    if (isFull()) {
         printf("Sorry, the Queue is full.\n");
         return;
     }
@@ -28,28 +24,31 @@ void enqueue(int item){
     totalItem++;
 }
 
-int dequeue(){
-    if(isEmpty()){
+int dequeue() {
+    if (isEmpty()) {
         printf("Sorry, the Queue is empty.\n");
         return -1;
     }
     int frontItem = ourQueue[front];
-    ourQueue[front] = -1;
     front = (front + 1) % CAPACITY;
     totalItem--;
     return frontItem;
 }
 
-void printQueue(){
-    int i;
+void printQueue() {
+    if (isEmpty()) {
+        printf("Queue is empty.\n");
+        return;
+    }
     printf("Queue: ");
-    for (i = 0; i < CAPACITY; i++){
-        printf("%d ", ourQueue[i]);
+    for (int i = 0; i < totalItem; i++) {
+        int index = (front + i) % CAPACITY;
+        printf("%d ", ourQueue[index]);
     }
     printf("\n");
 }
 
-int main(){
+int main() {
     printf("\n***********\nLet's implement our Queue.\n\n");
     enqueue(10);
     enqueue(20);
