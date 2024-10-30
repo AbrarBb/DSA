@@ -22,7 +22,7 @@ bool isEmpty()
 void enqueue(int item) 
 {
     if (isFull()) 
-    1{
+    {
         printf("Queue is full! Cannot enqueue %d\n", item);
         return;
     }
