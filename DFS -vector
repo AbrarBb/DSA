@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+#define MAX 1000
+vector<int> edges[MAX];
+bool visited[MAX] = {false};  
+
+void dfs(int node) 
+{
+    visited[node] = true;     
+    cout << node << " ";     
+
+    for (auto it : edges[node]) 
+    {
+        if (!visited[it]) 
+        {   
+            dfs(it);
+        }
+    }
+}
+
+int main() 
+{
+    edges[1].emplace_back(2);
+    edges[2].emplace_back(1);
+    edges[1].emplace_back(3);
+    edges[3].emplace_back(1);
+    edges[2].emplace_back(4);
+    edges[4].emplace_back(2);
+    edges[3].emplace_back(4);
+    edges[4].emplace_back(3);
+
+    cout << "DFS traversal starting from node 1: ";
+    dfs(1);  // Start DFS from node 1
+    //cout << endl;
+
+    return 0;
+}
