@@ -2,38 +2,48 @@
 #include <vector>
 using namespace std;
 
-#define MAX 1000
-vector<int> edges[MAX];
-bool visited[MAX] = {false};  
+vector<vector<int>> graph;   
+vector<bool> visited;        
 
 void dfs(int node) 
 {
-    visited[node] = true;     
-    cout << node << " ";     
+    visited[node] = true;
+    cout << node << " ";
 
-    for (auto it : edges[node]) 
+    for (int neighbor : graph[node]) 
     {
-        if (!visited[it]) 
-        {   
-            dfs(it);
+        if (!visited[neighbor]) 
+        {
+            dfs(neighbor);
         }
     }
 }
 
 int main() 
 {
-    edges[1].emplace_back(2);
-    edges[2].emplace_back(1);
-    edges[1].emplace_back(3);
-    edges[3].emplace_back(1);
-    edges[2].emplace_back(4);
-    edges[4].emplace_back(2);
-    edges[3].emplace_back(4);
-    edges[4].emplace_back(3);
+    int nodes, edges;
+    cout << "Enter number of nodes and edges: ";
+    cin >> nodes >> edges;
 
-    cout << "DFS traversal starting from node 1: ";
-    dfs(1);  // Start DFS from node 1
-    //cout << endl;
+    graph.resize(nodes + 1);
+    visited.resize(nodes + 1, false);
+
+    cout << "Enter each edge (two nodes per edge):" << endl;
+    for (int i = 0; i < edges; i++) 
+    {
+        int u, v;
+        cin >> u >> v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);  
+    }
+
+    int start;
+    cout << "Enter the starting node: ";
+    cin >> start;
+
+    cout << "DFS traversal from node " << start << ": ";
+    dfs(start);
+    cout << endl;
 
     return 0;
 }
