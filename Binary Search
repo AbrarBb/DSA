@@ -25,6 +25,7 @@ int binarySearch(List<int> arr, int target)
 void main() 
 {
   var array = [11,22,30,33,40,44,55,60,66,77,80,88,99];
+  //array.sort();
   int target = 88;
   print(array.length);
 
