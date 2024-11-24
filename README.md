@@ -33,9 +33,11 @@ This repository is a collection of implementations, algorithms, and notes aimed 
 ## **🛠 Languages Used**
 
 The implementations are available in the following languages:  
-- **C++**  
-- **Java**  
-- **Kotlin**  
+- **C**  
+- **C++**
+- **Dart**    
+- **Java**
+- **Kotlin**   
 - **MySQL** (for database-related algorithms)  
 
 ---
