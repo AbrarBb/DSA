@@ -29,7 +29,7 @@ int main()
     visited.resize(nodes + 1, false);
 
     cout << "Enter each edge (two nodes per edge):" << endl;
-    for (int i = 0; i < edges; i++) 
+    for (int a = 0; a < edges; a++) 
     {
         int u, v;
         cin >> u >> v;
