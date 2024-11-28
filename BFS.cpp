@@ -3,53 +3,52 @@
 #include <queue>
 using namespace std;
 
-vector<vector<int>> graph;    // Adjacency list for the graph
-vector<bool> visited;         // Visited array to keep track of visited nodes
+vector<vector<int>> graph;
+vector<bool> visited;
 
-void bfs(int startNode) {
-    queue<int> q;             // Queue for BFS
-    q.push(startNode);        // Start BFS from the startNode
-    visited[startNode] = true;
+void bfs(int start) 
+{
+    queue<int> q;
+    visited[start] = true;
+    q.push(start);
 
-    while (!q.empty()) {
-        int node = q.front();  // Get the node at the front of the queue
-        q.pop();               // Remove it from the queue
-        cout << node << " ";   // Print the node as part of BFS traversal
+    while (!q.empty()) 
+    {
+        int node = q.front();
+        q.pop();
+        cout << node << " ";
 
-        // Go through all neighbors of the current node
-        for (int neighbor : graph[node]) {
-            if (!visited[neighbor]) {   // If the neighbor has not been visited
-                q.push(neighbor);       // Add it to the queue
-                visited[neighbor] = true; // Mark it as visited
+        for (int neighbor : graph[node]) 
+        {
+            if (!visited[neighbor]) 
+            {
+                visited[neighbor] = true;
+                q.push(neighbor);
             }
         }
     }
 }
 
-int main() {
+int main() 
+{
     int nodes, edges;
-    cout << "Enter number of nodes and edges: ";
     cin >> nodes >> edges;
 
-    // Resize the graph and visited array based on the number of nodes
     graph.resize(nodes + 1);
     visited.resize(nodes + 1, false);
 
-    // Taking input for each edge
-    cout << "Enter each edge (two nodes per edge):" << endl;
-    for (int i = 0; i < edges; i++) {
+    for (int a = 0; a < edges; a++) 
+    {
         int u, v;
         cin >> u >> v;
-        graph[u].push_back(v); // Add edge u -> v
-        graph[v].push_back(u); // Add edge v -> u (for undirected graph)
+        graph[u].push_back(v);
+        graph[v].push_back(u);
     }
 
     int start;
-    cout << "Enter the starting node: ";
     cin >> start;
 
-    cout << "BFS traversal from node " << start << ": ";
-    bfs(start);  // Start BFS from the specified starting node
+    bfs(start);
     cout << endl;
 
     return 0;
