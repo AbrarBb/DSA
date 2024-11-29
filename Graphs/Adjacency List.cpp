@@ -8,7 +8,6 @@ int main()
     cout<< "Nodes & Edges:";
     cin >> n >> m;
     vector<vector<int>> g(n);
-    
     for (int c = 0; c < m; c++) 
     {
         int a, b;
@@ -17,10 +16,10 @@ int main()
     }
     
     cout<< "Node List\n";
-    for (int a = 0; a < n; a++) 
+    for (int i = 0; i < n; i++) 
     {
-        cout << a << ": ";
-        for (int v : g[a]) 
+        cout << i << ": ";
+        for (int v : g[i]) 
         {
             cout << v << " ";
         }
