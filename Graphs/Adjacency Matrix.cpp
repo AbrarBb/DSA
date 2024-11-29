@@ -1,29 +1,31 @@
 #include <iostream>
 using namespace std;
 
-// Function to print adjacency matrix
-void printAdjacencyMatrix(int graph[][3], int n) 
+int main() 
 {
-    for (int a = 0; a < n; a++) 
+    int nodes, edges;
+    cout << "Enter number of nodes and edges: ";
+    cin >> nodes >> edges;
+
+    int graph[nodes][nodes] = {};
+
+    cout << "Enter each edge (from node to node):" << endl;
+    for (int a = 0; a < edges; a++) 
     {
-        for (int b = 0; b < n; b++) 
+        int u, v;
+        cin >> u >> v;
+        graph[u][v] = 1; 
+    }
+
+    cout << "Adjacency Matrix:" << endl;
+    for (int a = 0; a < nodes; a++) 
+    {
+        for (int b = 0; b < nodes; b++) 
         {
             cout << graph[a][b] << " ";
         }
         cout << endl;
     }
-}
 
-int main() 
-{
-    // Graph as adjacency matrix
-    int graph[3][3] = 
-    {
-        {0, 1, 1},
-        {1, 0, 0},
-        {0, 1, 0}
-    };
-
-    printAdjacencyMatrix(graph, 3); // Number of vertices is 3
     return 0;
 }
