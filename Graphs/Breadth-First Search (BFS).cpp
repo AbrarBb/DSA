@@ -3,24 +3,27 @@
 #include <queue>
 using namespace std;
 
-void bfs(int start, vector<vector<int>> &graph, vector<bool> &visited) 
+vector<vector<int>> graph;
+vector<bool> visited;
+
+void bfs(int start) 
 {
     queue<int> q;
-    q.push(start);
     visited[start] = true;
+    q.push(start);
 
     while (!q.empty()) 
     {
         int node = q.front();
         q.pop();
-        cout << "Visited " << node + 1 << endl;
+        cout << node << " ";
 
-        for (int a : graph[node]) 
+        for (int neighbor : graph[node]) 
         {
-            if (!visited[a]) 
+            if (!visited[neighbor]) 
             {
-                q.push(a);
-                visited[a] = true;
+                visited[neighbor] = true;
+                q.push(neighbor);
             }
         }
     }
@@ -28,17 +31,25 @@ void bfs(int start, vector<vector<int>> &graph, vector<bool> &visited)
 
 int main() 
 {
-    int vertices = 4;
-    vector<vector<int>> graph(vertices);
+    int nodes, edges;
+    cin >> nodes >> edges;
 
-    // Add edges
-    graph[0] = {1, 2};
-    graph[1] = {2};
-    graph[2] = {0, 3};
-    graph[3] = {3};
+    graph.resize(nodes + 1);
+    visited.resize(nodes + 1, false);
 
-    vector<bool> visited(vertices, false);
+    for (int a = 0; a < edges; a++) 
+    {
+        int u, v;
+        cin >> u >> v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
 
-    bfs(0, graph, visited); // Start BFS from vertex 1
+    int start;
+    cin >> start;
+
+    bfs(start);
+    cout << endl;
+
     return 0;
 }
