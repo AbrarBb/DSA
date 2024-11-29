@@ -2,7 +2,6 @@
 #include <vector>
 #include <stack>
 using namespace std;
-
 vector<vector<int>> graph;
 vector<bool> visited;
 stack<int> result;
