@@ -36,7 +36,6 @@ int main()
         graph[u].push_back(v);
         graph[v].push_back(u);  
     }
-
     int start;
     cout << "Enter the starting node: ";
     cin >> start;
