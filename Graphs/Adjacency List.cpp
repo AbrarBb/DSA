@@ -8,6 +8,7 @@ int main()
     cout<< "Nodes & Edges:";
     cin >> n >> m;
     vector<vector<int>> g(n);
+    
     for (int c = 0; c < m; c++) 
     {
         int a, b;
