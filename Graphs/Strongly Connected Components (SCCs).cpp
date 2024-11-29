@@ -1,61 +1,68 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+
 using namespace std;
 
-void dfs(int u, vector<vector<int>> &graph, vector<bool> &visited, stack<int> &stk) 
+const int MAX = 1000;
+vector<int> graph[MAX], transpose[MAX];
+bool visited[MAX];
+stack<int> nodeStack;
+
+void dfs1(int node) 
 {
-    visited[u] = true;
-    for (int v : graph[u]) 
+    visited[node] = true;
+    for (int neighbor : graph[node]) 
     {
-        if (!visited[v]) dfs(v, graph, visited, stk);
+        if (!visited[neighbor]) 
+        {
+            dfs1(neighbor);
+        }
     }
-    stk.push(u);
+    nodeStack.push(node);
 }
 
-void reverseGraph(vector<vector<int>> &graph, vector<vector<int>> &transposed, int n) 
+void dfs2(int node) 
 {
-    for (int a = 0; a < n; a++) 
+    visited[node] = true;
+    cout << node << " ";
+    for (int neighbor : transpose[node]) 
     {
-        for (int b : graph[a]) 
+        if (!visited[neighbor]) 
         {
-            transposed[b].push_back(a);
+            dfs2(neighbor);
         }
     }
 }
 
-void printSCC(int u, vector<vector<int>> &graph, vector<bool> &visited) 
+void addEdge(int u, int v) 
 {
-    visited[u] = true;
-    cout << u + 1 << " ";
-    for (int v : graph[u]) 
-    {
-        if (!visited[v]) printSCC(v, graph, visited);
-    }
+    graph[u].push_back(v);
 }
 
-void findSCCs(vector<vector<int>> &graph, int n) 
-{
-    stack<int> stk;
-    vector<bool> visited(n, false);
-
-    for (int a = 0; a < n; a++) 
+void findSCCs(int nodes) {
+    for (int a = 1; a <= nodes; a++) 
     {
-        if (!visited[a]) dfs(a, graph, visited, stk);
+        if (!visited[a]) {
+            dfs1(a);
+        }
     }
-
-    vector<vector<int>> transposed(n);
-    reverseGraph(graph, transposed, n);
-    fill(visited.begin(), visited.end(), false);
-
-    cout << "Strongly Connected Components:\n";
-    while (!stk.empty()) 
+    for (int a = 1; a <= nodes; a++) 
     {
-        int u = stk.top();
-        stk.pop();
-        if (!visited[u]) 
+        for (int neighbor : graph[a]) 
         {
-            printSCC(u, transposed, visited);
+            transpose[neighbor].push_back(a);
+        }
+    }
+    fill(begin(visited), end(visited), false);
+    cout << "Strongly Connected Components are:\n";
+    while (!nodeStack.empty()) 
+    {
+        int node = nodeStack.top();
+        nodeStack.pop();
+        if (!visited[node]) 
+        {
+            dfs2(node);
             cout << endl;
         }
     }
@@ -63,16 +70,15 @@ void findSCCs(vector<vector<int>> &graph, int n)
 
 int main() 
 {
-    int n = 5;
-    vector<vector<int>> graph(n);
-
-    // Example graph
-    graph[0] = {1};
-    graph[1] = {2};
-    graph[2] = {0, 3};
-    graph[3] = {4};
-    graph[4] = {};
-
-    findSCCs(graph, n);
+    int nodes, edges, u, v;
+    cout << "Enter number of nodes and edges: ";
+    cin >> nodes >> edges;
+    cout << "Enter each directed edge (format: from to):" << endl;
+    for (int a = 0; a < edges; a++) 
+    {
+        cin >> u >> v;
+        addEdge(u, v);
+    }
+    findSCCs(nodes);
     return 0;
 }
