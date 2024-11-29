@@ -2,7 +2,6 @@
 #include <vector>
 #include <queue>
 using namespace std;
-
 vector<vector<int>> graph;
 vector<bool> visited;
 
@@ -36,7 +35,7 @@ int main()
 
     graph.resize(nodes + 1);
     visited.resize(nodes + 1, false);
-
+    
     for (int a = 0; a < edges; a++) 
     {
         int u, v;
