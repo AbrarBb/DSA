@@ -14,6 +14,7 @@ int main()
         cin >> a >> b;
         g[a].push_back(b);
     }
+    
     cout<< "Node List\n";
     for (int a = 0; a < n; a++) 
     {
