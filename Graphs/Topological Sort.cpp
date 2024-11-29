@@ -3,46 +3,55 @@
 #include <stack>
 using namespace std;
 
-void topoDFS(int u, vector<vector<int>> &graph, vector<bool> &visited, stack<int> &stk) 
+vector<vector<int>> graph;
+vector<bool> visited;
+stack<int> result;
+
+void dfs(int node) 
 {
-    visited[u] = true;
-    for (int v : graph[u]) 
-    {
-        if (!visited[v]) topoDFS(v, graph, visited, stk);
+    visited[node] = true;
+    for (int neighbor : graph[node]) 
+   {
+        if (!visited[neighbor]) 
+        {
+            dfs(neighbor);
+        }
     }
-    stk.push(u);
-}
-
-void topologicalSort(vector<vector<int>> &graph, int n) 
-{
-    stack<int> stk;
-    vector<bool> visited(n, false);
-
-    for (int a = 0; a < n; a++) 
-    {
-        if (!visited[a]) topoDFS(a, graph, visited, stk);
-    }
-
-    cout << "Topological Sort: ";
-    while (!stk.empty()) 
-    {
-        cout << stk.top() + 1 << " ";
-        stk.pop();
-    }
-    cout << endl;
+    result.push(node); // Push the node after all its neighbors are processed
 }
 
 int main() 
 {
-    int n = 6;
-    vector<vector<int>> graph(n);
+    int nodes, edges;
+    cout << "Enter number of nodes and edges: ";
+    cin >> nodes >> edges;
 
-    // Directed Acyclic Graph (DAG)
-    graph[5] = {0, 2};
-    graph[4] = {0, 1};
-    graph[2] = {3};
-    graph[3] = {1};
+    graph.resize(nodes);
+    visited.resize(nodes, false);
 
-    topologicalSort(graph, n);
+    cout << "Enter each edge (two nodes per edge):" << endl;
+    for (int a = 0; a < edges; a++) 
+    {
+        int u, v;
+        cin >> u >> v;
+        graph[u].push_back(v); // Directed graph
+    }
+
+    cout << "Topological Sort: ";
+    for (int a = 0; a < nodes; a++) 
+    {
+        if (!visited[a]) 
+        {
+            dfs(a);
+        }
+    }
+
+    while (!result.empty()) 
+    {
+        cout << result.top() << " ";
+        result.pop();
+    }
+    cout << endl;
+
     return 0;
 }
