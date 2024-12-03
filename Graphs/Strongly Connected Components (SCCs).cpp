@@ -35,10 +35,10 @@ void dfs2(int node)
     }
 }
 
-void addEdge(int u, int v) 
+/*void addEdge(int u, int v) 
 {
     graph[u].push_back(v);
-}
+}*/
 
 void findSCCs(int nodes) {
     for (int a = 1; a <= nodes; a++) 
@@ -77,7 +77,8 @@ int main()
     for (int a = 0; a < edges; a++) 
     {
         cin >> u >> v;
-        addEdge(u, v);
+        graph[u].push_back(v);
+        //addEdge(u, v);
     }
     findSCCs(nodes);
     return 0;
