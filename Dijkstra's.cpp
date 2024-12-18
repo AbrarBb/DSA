@@ -1,24 +1,34 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <climits>
 using namespace std;
 
-void dijkstra(int nodeCount, vector<vector<int>> edges, int start) 
+void dijkstra(int nodeCount, vector<vector<pair<int, int>>> adj, int start) 
 {
-    vector<int> distances(nodeCount, INT_MAX); 
+    vector<int> distances(nodeCount, INT_MAX);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+
     distances[start] = 0;
+    pq.push({0, start});
 
-    for (int a = 0; a < nodeCount - 1; a++) 
-    { 
-        for (auto edge : edges) 
+    while (!pq.empty()) 
+    {
+        int currDist = pq.top().first;
+        int currNode = pq.top().second;
+        pq.pop();
+
+        if (currDist > distances[currNode]) continue;
+
+        for (auto neighbor : adj[currNode]) 
         {
-            int source = edge[0];
-            int destination = edge[1];
-            int weight = edge[2];
+            int nextNode = neighbor.first;
+            int weight = neighbor.second;
 
-            if (distances[source] != INT_MAX && distances[source] + weight < distances[destination]) 
+            if (distances[currNode] + weight < distances[nextNode]) 
             {
-                distances[destination] = distances[source] + weight;
+                distances[nextNode] = distances[currNode] + weight;
+                pq.push({distances[nextNode], nextNode});
             }
         }
     }
@@ -30,22 +40,19 @@ void dijkstra(int nodeCount, vector<vector<int>> edges, int start)
     }
 }
 
-int main() 
-{
-    
-    vector<vector<int>> edges = 
-    {
-        {0, 1, 1},  
-        {0, 2, 4},  
-        {1, 2, 2},  
-        {1, 3, 6},  
-        {2, 3, 3}   
-    };
+int main() {
+    int nodeCount = 6; 
+    vector<vector<pair<int, int>>> adj(nodeCount);
 
+    adj[0] = {{1, 14}, {2, 9}, {5, 7}}; // A -> B, C, F
+    adj[1] = {{0, 14}, {2, 2}, {3, 8}}; // B -> A, C, D
+    adj[2] = {{0, 9}, {1, 2}, {5, 10}, {4, 11}}; // C -> A, B, F, E
+    adj[3] = {{1, 8}, {4, 6}}; // D -> B, E
+    adj[4] = {{3, 6}, {2, 11}, {5, 15}}; // E -> D, C, F
+    adj[5] = {{0, 7}, {2, 10}, {4, 15}}; // F -> A, C, E
 
-    int nodeCount = 4; 
     int startNode = 0; 
-    dijkstra(nodeCount, edges, startNode);
+    dijkstra(nodeCount, adj, startNode);
 
     return 0;
 }
