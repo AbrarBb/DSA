@@ -1,0 +1,44 @@
+void dijkstra(int nodeCount, List<List<int>> edges, int start) 
+{
+  var distances = List.filled(nodeCount, 99999);
+  distances[start] = 0;
+
+  for (int i = 0; i < nodeCount - 1; i++) 
+  {
+    for (var edge in edges) 
+    {
+      int source = edge[0];
+      int destination = edge[1];
+      int weight = edge[2];
+
+      int newDistance = distances[source] + weight;
+      if (newDistance < distances[destination]) 
+      {
+        distances[destination] = newDistance;
+      }
+    }
+  }
+
+  print('Shortest distances from node $start:');
+  for (int i = 0; i < nodeCount; i++) 
+  {
+    print('To node $i: ${distances[i]}');
+  }
+}
+
+void main() 
+{
+
+  var edges = 
+  [
+    [0, 1, 1], 
+    [0, 2, 4], 
+    [1, 2, 2], 
+    [1, 3, 6], 
+    [2, 3, 3], 
+  ];
+  
+  int nodeCount = 4; 
+  int startNode = 0; 
+  dijkstra(nodeCount, edges, startNode);
+}
