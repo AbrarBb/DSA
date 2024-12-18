@@ -35,7 +35,7 @@ int main()
     
     vector<vector<int>> edges = 
     {
-        {0, 1, 1},  // Edge from node 0 to node 1 with weight 1
+        {0, 1, 1},  
         {0, 2, 4},  
         {1, 2, 2},  
         {1, 3, 6},  
@@ -43,7 +43,7 @@ int main()
     };
 
 
-    int nodeCount = 4; // Total nodes: 0, 1, 2, 3
+    int nodeCount = 4; 
     int startNode = 0; 
     dijkstra(nodeCount, edges, startNode);
 
