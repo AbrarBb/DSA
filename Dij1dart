@@ -9,12 +9,12 @@ void dijkstra(List<String> nodes, List<List<dynamic>> edges, String start) {
   for (int count = 0; count < n; count++) 
   {
     int minDistance = 99999, u = -1;
-    for (int a = 0; i < n; a++) 
+    for (int a = 0; a < n; a++) 
     {
-      if (!visited[i] && distances[i] < minDistance) 
+      if (!visited[a] && distances[a] < minDistance) 
       {
-        minDistance = distances[i];
-        u = i;
+        minDistance = distances[a];
+        u = a;
       }
     }
 
@@ -43,16 +43,16 @@ void dijkstra(List<String> nodes, List<List<dynamic>> edges, String start) {
 
 
   print('Shortest distances from $start:');
-  for (int i = 0; i < n; i++) 
+  for (int a = 0; a < n; a++) 
   {
-    print('To ${nodes[i]}: ${distances[i]}');
+    print('To ${nodes[a]}: ${distances[a]}');
   }
 }
 
-void main() {
-
+void main() 
+{
   var nodes = ['A', 'B', 'C', 'D', 'E', 'F'];
-
+  
   var edges = [
     ['A', 'B', 14],
     ['A', 'C', 9],
@@ -64,6 +64,5 @@ void main() {
     ['D', 'E', 6],
     ['E', 'F', 15],
   ];
-
   dijkstra(nodes, edges, 'A');
 }
