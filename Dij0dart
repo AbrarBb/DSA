@@ -1,0 +1,49 @@
+class Edge 
+{
+   int source;
+   int destination;
+   int weight;
+
+  Edge(this.source, this.destination, this.weight);
+}
+
+void dijkstra(int nodeCount, List<Edge> edges, int start) 
+{
+  var distances = List.filled(nodeCount, 99999); 
+  distances[start] = 0;
+
+  
+  for (int a = 0; a < nodeCount - 1; a++) 
+  {
+    for (var edge in edges) 
+    {
+      int newDistance = distances[edge.source] + edge.weight;
+      if (newDistance < distances[edge.destination]) 
+      {
+        distances[edge.destination] = newDistance;
+      }
+    }
+  }
+  
+  for (int a = 0; a < nodeCount; a++) 
+  {
+    print('Distance from $start to $a: ${distances[a]}');
+  }
+  
+}
+
+void main() 
+{
+  var edges = 
+  [
+    Edge(0, 1, 1),
+    Edge(0, 2, 4),
+    Edge(1, 2, 2),
+    Edge(1, 3, 6),
+    Edge(2, 3, 3),
+  ];
+  
+  int nodeCount = 4;
+  int startNode = 0; 
+  dijkstra(nodeCount, edges, startNode);
+}
