@@ -1,32 +1,41 @@
 #include<stdio.h>
-
-void name_d(char s[])
+void visual(char s[],int count)
 {
-    for(int a=0;s[a]!='\0';a++)
+    for(int a=0;a<=count;a++)
     {
-        printf("%c",s[a]);
-    }
-}
-
-char name_cat()
-{
-    char name[25];
-    int count=0;
-    printf("Enter Your Name:");
-    while(1)
-    {
-        scanf("%c",&name[count]);
-        if(name[count]=='\n')
+        if(s[a]=='\0')
         {
-            name[count]='\0';
-            break;
+             printf("String[%d]=Null",a);
         }
-        count++;
+        else
+        printf("String[%d]=%c\n",a,s[a]);
+        
     }
-    name_d(name);
-}
-
+}    
 int main()
 {
-    name_cat();
+    char name[20];
+    printf("Enter Name:");
+    
+    int a=0;
+    while(1)
+    {
+        scanf("%c",&name[a]);
+        if(name[a]=='\n')
+        {
+            name[a]='\0';
+            break;
+        }
+        a++;
+    }
+    
+    for(int b=0;name[b]!='\0';b++)
+    {
+        printf("%c",name[b]);
+    }
+    printf("\n");
+    
+    visual(name,a);
+    
+    //printf("%s",name);
 }
